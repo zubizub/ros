@@ -1,0 +1,162 @@
+//gradient
+@mixin background-gradient-transparent($startColor: #3c3c3c, $endColor: #999999) {
+    background: none;
+    background-image: -webkit-gradient(linear, left top, left bottom, from($startColor), to($endColor));
+    background-image: -webkit-linear-gradient(top, $startColor, $endColor);
+    background-image: -moz-linear-gradient(top, $startColor, $endColor);
+    background-image: -ms-linear-gradient(top, $startColor, $endColor);
+    background-image: -o-linear-gradient(top, $startColor, $endColor);
+    background-image: linear-gradient(top, $startColor, $endColor);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$startColor}', endColorStr='#{$endColor}');
+}
+
+//turn off transition
+@mixin trans-off {
+    &,
+    * {
+        -moz-transition: none;
+        -webkit-transition: none;
+        -o-transition: color 0 ease-in;
+        -ms-transition: none;
+        transition: none;
+    }
+}
+
+//zoom
+@mixin zoom ($index) {
+    @include transform( scale($index) translateZ(0) );
+}
+
+//em calculator
+@function pxToEm($pxval, $base: $fontSizeDefault) {
+    @return #{$pxval / $base}em;
+}
+
+@mixin text-overflow() {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+}
+
+@mixin absolute_fixed($t:0,$r:0,$b:0,$l:0){
+    position: absolute;
+    top: #{$t};
+    right: #{$r};
+    bottom: #{$b};
+    left: #{$l};
+};
+
+//no select
+@mixin no-select-recursive {
+    &,
+    & * {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+}
+
+//animations
+@mixin trans-delay ($time){
+    -webkit-transition-delay: $time;
+    -o-transition-delay: $time;
+    -moz-transition-delay: $time;
+    transition-delay: $time;
+}
+
+//cursors
+@mixin cursor-grab (){
+    cursor: hand;
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+    
+    & *:active {
+        cursor: grabbing;
+        cursor: -moz-grabbing;
+        cursor: -webkit-grabbing;    
+    }
+} 
+@mixin cursor-grabbing (){
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing; 
+} 
+
+//sif adaptive
+@mixin adaptive_min_width($width) {
+    @media only screen
+    and (min-width : #{$width}px) {
+        @content
+    }
+}
+@mixin adaptive_max_width($width) {
+    @media only screen
+    and (max-width : #{$width}px) {
+        @content
+    }
+}
+@mixin adaptive_min_height($height) {
+    @media only screen
+    and (min-height : #{$height}px) {
+        @content
+    }
+}
+@mixin adaptive_max_height($height) {
+    @media only screen
+    and (max-height : #{$height}px) {
+        @content
+    }
+}
+@mixin adaptive_max_width_or_max_height($width, $height) {
+    @media only screen
+    and 
+    (max-width : #{$width}px), 
+    (max-height : #{$height}px) {
+        @content
+    }
+}
+@mixin adaptive_max_width_and_max_height($width, $height) {
+    @media only screen
+    and 
+    (max-width : #{$width}px)
+    and
+    (max-height : #{$height}px) {
+        @content
+    }
+}
+//monitors
+@mixin adaptive_lower_hd_ready_monitor() {
+    @media only screen
+    and 
+    (max-width : #{1680 - 20}px), 
+    (max-height : #{1050 - 150}px) {
+        @content
+    }
+}
+@mixin adaptive_lower_13_inch_monitor() {
+    @media only screen
+    and 
+    (max-width : #{1366 - 20}px), 
+    (max-height : #{768 - 150}px) {
+        @content
+    }
+}
+//landscape and portrait
+@mixin adaptive_landscape() {
+    @media only screen
+    and (orientation : landscape) {
+        @content
+    }
+}
+@mixin adaptive_portrait() {
+    @media only screen
+    and (orientation : portrait)
+    and (min-height : 920px) 
+    and (min-width : 980px) {
+        @content
+    }
+}

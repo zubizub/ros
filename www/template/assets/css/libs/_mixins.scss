@@ -1,0 +1,594 @@
+/* -------------------------------------------------------------
+  Sass CSS3 Mixins! The Cross-Browser CSS3 Sass Library
+  By: Matthieu Aussaguel, http://www.mynameismatthieu.com, @matthieu_tweets
+
+  List of CSS3 Sass Mixins File to be @imported and @included as you need
+
+  The purpose of this library is to facilitate the use of CSS3 on different browsers avoiding HARD TO READ and NEVER
+  ENDING css files
+
+  note: All CSS3 Properties are being supported by Safari 5
+  more info: http://www.findmebyip.com/litmus/#css3-properties
+
+  Mixins available:
+    -   background-gradient     - arguments: Start Color: #3C3C3C, End Color: #999999
+    -   background-size         - arguments: Width: 100%, Height: 100%
+    -   border-radius           - arguments: Radius: 5px
+    -   border-radius-separate  - arguments: Top Left: 5px, Top Left: 5px, Bottom Left: 5px, Bottom Right: 5px
+    -   box                     - arguments: Orientation: horizontal, Pack: center, Align: center
+    -   box-rgba                - arguments: R: 60, G: 3, B: 12, Opacity: 0.23, Color: #3C3C3C
+    -   box-shadow              - arguments: X: 2px, Y: 2px, Blur: 5px, Color: rgba(0,0,0,.4)
+    -   box-sizing              - arguments: Type: border-box
+    -   columns                 - arguments: Count: 3, Gap: 10
+    -   double-borders          - arguments: Color One: #3C3C3C, Color Two: #999999, Radius: 0
+    -   flex                    - arguments: Value: 1
+    -   flip                    - arguments: ScaleX: -1
+    -   font-face               - arguments: Font Family: myFont, Eot File Src: myFont.eot, Woff File Src: myFont.woff, Ttf File Src: myFont.ttf
+    -   opacity                 - arguments: Opacity: 0.5
+    -   outline radius          - arguments: Radius: 5px
+    -   resize                  - arguments: Direction: both
+    -   rotate                  - arguments: Degree: 0, M11: 0, M12: 0, M21: 0, M22: 0
+    CSS Matrix Rotation Calculator http://www.boogdesign.com/examples/transforms/matrix-calculator.html
+    -   text-shadow             - arguments: X: 2px, Y: 2px, Blur: 5px, Color: rgba(0,0,0,.4)
+    -   transform               - arguments: Parameters: null
+    -   transition              - arguments: What: all, Length: 1s, Easing: ease-in-out
+    -   triple-borders          - arguments: Color One: #3C3C3C, Color Two: #999999, Color Three: #000000, Radius: 0
+
+------------------------------------------------------------- */
+
+/* BACKGROUND GRADIENT */
+@mixin background-gradient($startColor: #3c3c3c, $endColor: #999999) {
+    background-color: $startColor;
+    background-image: -webkit-gradient(linear, left top, left bottom, from($startColor), to($endColor));
+    background-image: -webkit-linear-gradient(top, $startColor, $endColor);
+    background-image: -moz-linear-gradient(top, $startColor, $endColor);
+    background-image: -ms-linear-gradient(top, $startColor, $endColor);
+    background-image: -o-linear-gradient(top, $startColor, $endColor);
+    background-image: linear-gradient(top, $startColor, $endColor);
+    //filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$startColor}', endColorStr='#{$endColor}');
+}
+
+/* BACKGROUND SIZE */
+@mixin background-size($width: 100%, $height: 100%) {
+    -moz-background-size: $width $height;
+    -webkit-background-size: $width $height;
+    background-size: $width $height;
+}
+
+/* BORDER RADIUS */
+@mixin border-radius($radius: 5px) {
+    -moz-border-radius: $radius;
+    -webkit-border-radius: $radius;
+    border-radius: $radius;
+}
+
+@mixin border-radius-separate($topLeftRadius: 5px, $topRightRadius: 5px, $bottomLeftRadius: 5px, $bottomRightRadius: 5px) {
+    -webkit-border-top-left-radius: $topLeftRadius;
+    -webkit-border-top-right-radius: $topRightRadius;
+    -webkit-border-bottom-right-radius: $bottomRightRadius;
+    -webkit-border-bottom-left-radius: $bottomLeftRadius;
+    -moz-border-radius-topleft: $topLeftRadius;
+    -moz-border-radius-topright: $topRightRadius;
+    -moz-border-radius-bottomright: $bottomRightRadius;
+    -moz-border-radius-bottomleft: $bottomLeftRadius;
+    border-top-left-radius: $topLeftRadius;
+    border-top-right-radius: $topRightRadius;
+    border-bottom-right-radius: $bottomRightRadius;
+    border-bottom-left-radius: $bottomLeftRadius;
+}
+
+/* BOX */
+@mixin box($orient: horizontal, $pack: center, $align: center) {
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+    -webkit-box-orient: $orient;
+    -moz-box-orient: $orient;
+    box-orient: $orient;
+    -webkit-box-pack: $pack;
+    -moz-box-pack: $pack;
+    box-pack: $pack;
+    -webkit-box-align: $align;
+    -moz-box-align: $align;
+    box-align: $align;
+}
+
+/* BOX RGBA */
+@mixin box-rgba($r: 60, $g: 3, $b: 12, $opacity: 0.23, $color: #3c3c3c) {
+    background-color: transparent;
+    background-color: rgba($r, $g, $b, $opacity);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color}',endColorstr='#{$color}');
+    zoom: 1;
+}
+
+/* BOX SHADOW */
+@mixin box-shadow($string...) {
+    -webkit-box-shadow: $string;
+    -moz-box-shadow: $string;
+    box-shadow: $string;
+}
+
+/* BOX SIZING */
+@mixin box-sizing($type: border-box) {
+    -webkit-box-sizing: $type;
+    -moz-box-sizing: $type;
+    box-sizing: $type;
+}
+
+/* COLUMNS */
+@mixin columns($count: 3, $gap: 10) {
+    -webkit-column-count: $count;
+    -moz-column-count: $count;
+    column-count: $count;
+    -webkit-column-gap: $gap;
+    -moz-column-gap: $gap;
+    column-gap: $gap;
+}
+
+/* DOUBLE BORDERS */
+@mixin double-borders($colorOne: #3c3c3c, $colorTwo: #999999, $radius: 0) {
+    border: 1px solid $colorOne;
+    -webkit-box-shadow: 0 0 0 1px $colorTwo;
+    -moz-box-shadow: 0 0 0 1px $colorTwo;
+    box-shadow: 0 0 0 1px $colorTwo;
+    @include border-radius($radius);
+}
+
+/* FLEX */
+@mixin flex($value: 1) {
+    -webkit-box-flex: $value;
+    -moz-box-flex: $value;
+    box-flex: $value;
+}
+
+/* FLIP */
+@mixin flip($scaleX: -1) {
+    -moz-transform: scaleX($scaleX);
+    -o-transform: scaleX($scaleX);
+    -webkit-transform: scaleX($scaleX);
+    transform: scaleX($scaleX);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}
+
+@mixin flexbox {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+@mixin inline-flex {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -moz-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+}
+
+@mixin flex-direction($value: row) {
+    @if $value == row-reverse {
+        -webkit-box-direction: reverse;
+        -webkit-box-orient: horizontal;
+    } @else if $value == column {
+        -webkit-box-direction: normal;
+        -webkit-box-orient: vertical;
+    } @else if $value == column-reverse {
+        -webkit-box-direction: reverse;
+        -webkit-box-orient: vertical;
+    } @else {
+        -webkit-box-direction: normal;
+        -webkit-box-orient: horizontal;
+    }
+    -webkit-flex-direction: $value;
+    -moz-flex-direction: $value;
+    -ms-flex-direction: $value;
+    flex-direction: $value;
+}
+
+@mixin flex-wrap($value: nowrap) {
+    // No Webkit Box fallback.
+    -webkit-flex-wrap: $value;
+    -moz-flex-wrap: $value;
+    @if $value == nowrap {
+        -ms-flex-wrap: none;
+    } @else { 
+        -ms-flex-wrap: $value; 
+    }
+    flex-wrap: $value;
+}
+
+@mixin flex-flow($values: (row nowrap)) {
+    // No Webkit Box fallback.
+    -webkit-flex-flow: $values;
+    -moz-flex-flow: $values;
+    -ms-flex-flow: $values;
+    flex-flow: $values;
+}
+
+@mixin order($int: 0) {
+    -webkit-box-ordinal-group: $int + 1;
+    -webkit-order: $int;
+    -moz-order: $int;
+    -ms-flex-order: $int;
+    order: $int;
+}
+
+@mixin flex-grow($int: 0) {
+    -webkit-box-flex: $int;
+    -webkit-flex-grow: $int;
+    -moz-flex-grow: $int;
+    -ms-flex-positive: $int;
+    flex-grow: $int;
+}
+
+@mixin flex-shrink($int: 1) {
+    -webkit-flex-shrink: $int;
+    -moz-flex-shrink: $int;
+    -ms-flex-negative: $int;
+    flex-shrink: $int;
+}
+
+@mixin flex-basis($value: auto) {
+    -webkit-flex-basis: $value;
+    -moz-flex-basis: $value;
+    -ms-flex-preferred-size: $value;
+    flex-basis: $value;
+}
+
+@mixin justify-content($value: flex-start) {
+    @if $value == flex-start {
+        -webkit-box-pack: start;
+        -ms-flex-pack: start;
+    } @else if $value == flex-end {
+        -webkit-box-pack: end;
+        -ms-flex-pack: end;
+    } @else if $value == space-between {
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+    } @else if $value == space-around {
+        -ms-flex-pack: distribute;      
+    } @else {
+        -webkit-box-pack: $value;
+        -ms-flex-pack: $value;
+    }
+    -webkit-justify-content: $value;
+    -moz-justify-content: $value;
+    justify-content: $value;
+}
+
+@mixin align-items($value: stretch) {
+    @if $value == flex-start {
+        -webkit-box-align: start;
+        -ms-flex-align: start;
+    } @else if $value == flex-end {
+        -webkit-box-align: end;
+        -ms-flex-align: end;
+    } @else {
+        -webkit-box-align: $value;
+        -ms-flex-align: $value;
+    }
+    -webkit-align-items: $value;
+    -moz-align-items: $value;
+    align-items: $value;
+}
+
+@mixin align-self($value: auto) {
+    // No Webkit Box Fallback.
+    -webkit-align-self: $value;
+    -moz-align-self: $value;
+    @if $value == flex-start {
+        -ms-flex-item-align: start;
+    } @else if $value == flex-end {
+        -ms-flex-item-align: end;
+    } @else {
+        -ms-flex-item-align: $value;
+    }
+    align-self: $value;
+}
+
+@mixin align-content($value: stretch) {
+    // No Webkit Box Fallback.
+    -webkit-align-content: $value;
+    -moz-align-content: $value;
+    @if $value == flex-start {
+        -ms-flex-line-pack: start;
+    } @else if $value == flex-end {
+        -ms-flex-line-pack: end;
+    } @else {
+        -ms-flex-line-pack: $value;
+    }
+    align-content: $value;
+}
+/* FONT FACE */
+@mixin font-face($fontFamily: myFont, $eotFileSrc: "myFont.eot", $woffFileSrc: "myFont.woff", $ttfFileSrc: "myFont.ttf") {
+    font-family: $fontFamily;
+    src: url($eotFileSrc) format("eot"), url($woffFileSrc) format("woff"), url($ttfFileSrc) format("truetype");
+}
+
+@mixin font-face-simple($file: myfont, $path: "fonts/") {
+    font-family: $file;
+    src: url($path + $file + ".eot");
+    src: url($path + $file + ".eot?#iefix") format("embedded-opentype"), url($path + $file + ".woff") format("woff"), url($path + $file + ".ttf") format("truetype"), url($path + $file + ".svg#glyphicons-halflingsregular") format("svg");
+}
+
+@mixin animation($str...) {
+    animation: $str;
+    -moz-animation: $str;
+    -webkit-animation: $str;
+    -o-animation: $str;
+}
+
+@mixin keyframes($name) {
+    @-webkit-keyframes #{$name} {
+        @content;
+    }
+
+    @-moz-keyframes #{$name} {
+        @content;
+    }
+
+    @-ms-keyframes #{$name} {
+        @content;
+    }
+
+    @keyframes #{$name} {
+        @content;
+    }
+}
+
+/* OPACITY */
+@mixin opacity($opacity: 0.5) {
+    filtfer: alpha(opacity = $opacity * 100);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=" + $opacity * 100 + ")";
+    -moz-opacity: $opacity;
+    -khtml-opacity: $opacity;
+    opacity: $opacity;
+}
+
+/* OUTLINE RADIUS */
+@mixin outline-radius($radius: 5px) {
+    -webkit-outline-radius: $radius;
+    -moz-outline-radius: $radius;
+    outline-radius: $radius;
+}
+
+/* RESIZE */
+@mixin resize($direction: both) {
+    -webkit-resize: $direction;
+    -moz-resize: $direction;
+    resize: $direction;
+}
+
+/* ROTATE*/
+@mixin rotate($deg: 0, $m11: 0, $m12: 0, $m21: 0, $m22: 0) {
+    -moz-transform: rotate($deg + deg);
+    -o-transform: rotate($deg + deg);
+    -webkit-transform: rotate($deg + deg);
+    -ms-transform: rotate($deg + deg);
+    transform: rotate($deg + deg);
+    filter: progid:DXImageTransform.Microsoft.Matrix(M11=#{$m11}, M12=#{$m12}, M21=#{$m21}, M22=#{$m22}, sizingMethod='auto expand');
+    zoom: 1;
+}
+
+/* TEXT SHADOW */
+@mixin text-shadow($params) {
+    text-shadow: $params;
+}
+
+/* TRANSFORM  */
+@mixin transform($params) {
+    -webkit-transform: $params;
+    -moz-transform: $params;
+    -ms-transform: $params;
+    -o-transform: $params;
+    transform: $params;
+}
+
+@mixin transform-origin ($origin) {
+    moz-transform-origin: $origin;
+         -o-transform-origin: $origin;
+        -ms-transform-origin: $origin;
+    -webkit-transform-origin: $origin;
+          transform-origin: $origin;
+}
+
+@mixin fix_transition_bugs {
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+    @include transform(translateZ(1) scale(1, 1));
+}
+
+/* TRANSITION */
+@mixin transition($what: all, $length: 1s, $easing: ease-in-out) {
+    -moz-transition: $what $length $easing;
+    -o-transition: $what $length $easing;
+    -webkit-transition: $what $length $easing;
+    -ms-transition: $what $length $easing;
+    transition: $what $length $easing;
+}
+
+@mixin trans($str...) {
+    -webkit-transition: $str;
+    -moz-transition: $str;
+    -o-transition: $str;
+    -ms-transition: $str;
+    transition: $str;
+}
+
+@mixin transition-delay($length: 0s) {
+    -moz-transition-delay: $length;
+    -o-transition-delay: $length;
+    -webkit-transition-delay: $length;
+    -ms-transition-delay: $length;
+    transition-delay: $length;
+}
+@mixin transition-duration($length: 0s) {
+    -moz-transition-duration: $length;
+    -o-transition-duration: $length;
+    -webkit-transition-duration: $length;
+    -ms-transition-duration: $length;
+    transition-duration: $length;
+}
+
+@mixin placeholder {
+  &::-webkit-input-placeholder {@content;}
+  &:-moz-placeholder           {@content;}
+  &::-moz-placeholder          {@content;}
+  &:-ms-input-placeholder      {@content;}  
+}
+
+@mixin anim($speed: $anim_speed, $easing: ease) {
+    @include transition(all, $speed, $easing);
+}
+
+@mixin bg_hover_light($color, $level: 3%) {
+    @include anim;
+    background-color: $color;
+    &:hover {
+        background-color: darken($color, $level);
+    }
+    &:active {
+        background-color: darken($color, $level + 4%);
+    }
+}
+
+@mixin color_hover_light($color) {
+    @include anim;
+    color: $color;
+    &:hover {
+        color: lighten($color, 5%);
+    }
+    &:active {
+        color: darken($color, 5%);
+    }
+}
+
+@mixin multiline-ellipsis($height, $lineheight, $ellipsiswidth) {
+    $ellipsiswidth: 3em !default;
+    .ellipsis {
+        overflow: hidden;
+        height: $height;
+        line-height: $lineheight;
+    }
+    .ellipsis:before {
+        content: "";
+        float: left;
+        width: 5px;
+        height: $height;
+    }
+    .ellipsis > *:first-child {
+        float: right;
+        width: 100%;
+        margin-left: -5px;
+    }
+    .ellipsis:after {
+        content: "\02026";
+        float: right;
+        position: relative;
+        top: -25px;
+        left: 100%;
+        width: $ellipsiswidth;
+        margin-left: -$ellipsiswidth;
+        padding-right: 5px;
+        text-align: right;
+        background: white;
+        background: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0)), to(white), color-stop(50%, white));
+        background: -moz-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
+        background: -o-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
+        background: -ms-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
+        background: linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
+    }
+}
+
+/* TRIPLE BORDERS */
+@mixin triple-borders($colorOne: #3c3c3c, $colorTwo: #999999, $colorThree: black, $radius: 0) {
+    border: 1px solid $colorOne;
+    @include border-radius($radius);
+    -webkit-box-shadow: 0 0 0 1px $colorTwo, 0 0 0 2px $colorThree;
+    -moz-box-shadow: 0 0 0 1px $colorTwo, 0 0 0 2px $colorThree;
+    box-shadow: 0 0 0 1px $colorTwo, 0 0 0 2px $colorThree;
+}
+
+@mixin blur($px: 0) {
+    -webkit-filter: blur(#{$px}px) !important;
+    -ms-filter: blur(#{$px}px) !important;
+    -moz-filter: blur(#{$px}px) !important;
+    filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'blur\'><feGaussianBlur stdDeviation=\'#{$px}\' /></filter></svg>#blur");
+    filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='#{$px}');
+}
+
+@mixin filter($filter-type,$filter-amount) { 
+  -webkit-filter: $filter-type+unquote('(#{$filter-amount})');
+  -moz-filter: $filter-type+unquote('(#{$filter-amount})');
+  -ms-filter: $filter-type+unquote('(#{$filter-amount})');
+  -o-filter: $filter-type+unquote('(#{$filter-amount})');
+  filter: $filter-type+unquote('(#{$filter-amount})');
+}
+
+@mixin no-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@mixin border_lighter_color($color) {
+  @for $n from 0 through 100 {
+    .lighter_than_bg_#{$n} {
+      border-color: lighten($color, $n * 1%);
+    }
+  }
+}
+
+@mixin grayscale( $toggle: "on", $mode:"grayscale", $amount: 1 ) {
+    $svg-type: "matrix";
+    $svg-value-grayscale: "0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0";
+    $svg-value-sepia: (0.393 + 0.607 * (1 - $amount)) + " " + (0.769 - 0.769 * (1 - $amount)) + " " + (0.189 - 0.189 * (1 - $amount)) + " 0 0 " + (0.349 - 0.349 * (1 - $amount)) + " " + (0.686 + 0.314 * (1 - $amount)) + " " + (0.168 - 0.168 * (1 - $amount)) + " 0 0 " + (0.272 - 0.272 * (1 - $amount)) + " " + (0.534 - 0.534 * (1 - $amount)) + " " + (0.131 + 0.869 * (1 - $amount)) + " 0 0 0 0 0 1 0";
+    $ie-alpha: alpha(#{"opacity="}round( $amount * 100 ) );
+
+    @if $amount != 1 and $mode == "grayscale" {
+        $svg-type: "saturate";
+        $svg-value-grayscale: $amount;
+    }
+
+    @if $toggle == "on" {
+        @if $mode == "grayscale" {
+            -webkit-filter: grayscale( round( $amount * 100% )); // Chrome 19+, Safari 6+, Safari 6+ iOS
+            -moz-filter: grayscale(round( $amount * 100% ));
+            -ms-filter: grayscale(round( $amount * 100% ));
+            -o-filter: grayscale(round( $amount * 100% ));
+            filter: grayscale( round( $amount * 100% ) ); // Catch-all
+            filter: gray $ie-alpha; // IE6-9
+            filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'#{$mode}\'><feColorMatrix type=\'#{$svg-type}\' values=\'#{$svg-value-grayscale}\'/></filter></svg>##{$mode}"); // Firefox 10+, Firefox on Android
+        }
+        @else if $mode == "sepia" {
+            filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'#{$mode}\'><feColorMatrix type=\'matrix\' values=\'#{$svg-value-sepia}\'/></filter></svg>##{$mode}");
+            filter: #5E2612 $ie-alpha;
+            -webkit-filter: sepia( round( $amount * 100% ) ); // Chrome 19+, Safari 6+, Safari 6+ iOS
+            filter: sepia( round( $amount * 100% ) ); // Catch-all
+        }
+        @else {
+            $toggle:"off";
+        }
+    }
+
+    @if $toggle == "off" {
+        @if $svg-type == "saturate" {
+            filter: none;
+        } 
+        @else {
+            filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 1 0\'/></filter></svg>#grayscale");
+        }
+        -webkit-filter: grayscale(0%);
+        -moz-filter: grayscale(0%);
+        -ms-filter: grayscale(0%);
+        -o-filter: grayscale(0%);
+        filter: grayscale(0);
+    }
+}

@@ -1,0 +1,83 @@
+body {
+    
+}
+
+a {
+
+    &:hover {
+
+    }
+}
+
+
+/*.main {
+    background-color: green;
+    width: 98%;
+    height: 100%;
+    padding: 1% 1%;
+}
+
+.inner {
+    background-color: #f4f8f8;
+    width: 100%;
+    margin: 0 auto;
+    height: 100%;
+  
+
+
+}*/
+.main {
+    background-color: green;
+    width: 87.2%;
+    min-height: 100%;
+    padding: 1.5% 1%;
+    margin: 0 auto;
+}
+
+.inner {
+    background-color: #f4f8f8;
+    width: 100%;
+    margin: 0 auto;
+    height: 100%;
+  
+}
+
+
+img.logo {
+    width: 8%;
+    margin: 0 auto;
+    display: block;
+    padding-top: 6.5%;
+    padding-bottom: 2%;
+}
+
+
+.block { display: block; clear:both;}
+
+
+.f20 { font-size: pxToEm(20); }
+.f12 { font-size: pxToEm(12); }
+.f26 { font-size: pxToEm(26); }
+.f255 { font-size: pxToEm(255); }
+
+span {
+  font-family: "RobotoBold";
+}
+
+span.phone, #storageMap, #svgPatterned, span.block{
+  width: 50%;
+    margin: 0 auto;
+    text-align: center;
+}
+ #svgPatterned{
+  width: 100%;
+       margin-top: pxToEm(68);
+}
+
+span#storageMap {
+    color: #dd1512;
+    margin-top: 5px;
+    text-transform: uppercase;
+letter-spacing: pxToEm(1);
+
+}
